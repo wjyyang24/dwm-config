@@ -62,6 +62,9 @@ static const char *termcmd[]  = { "kitty", NULL };
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *upbrightness[]   = { "brightnessctl", "set", "+10%", NULL };
 static const char *downbrightness[] = { "brightnessctl", "set", "10%-", NULL };
+static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",   NULL };
+static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",   NULL };
+static const char *mute_vol[] = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -102,6 +105,9 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, 
 	{ 0,            XF86XK_MonBrightnessUp,    spawn,          {.v = upbrightness } },
 	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downbrightness } },
+	{ 0, 		XF86XK_AudioMute,          spawn, 	   {.v = mute_vol } },
+	{ 0, 		XF86XK_AudioLowerVolume,   spawn, 	   {.v = down_vol } },
+        { 0, 		XF86XK_AudioRaiseVolume,   spawn,  	   {.v = up_vol } },
 };
 
 /* button definitions */
