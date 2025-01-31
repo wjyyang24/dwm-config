@@ -60,6 +60,8 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
 static const char *browsercmd[] = { "firefox", NULL };
+static const char *upbrightness[]   = { "xbacklight", "-inc", "10", NULL };
+static const char *downbrightness[] = { "xbacklight", "-dec", "10", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -98,6 +100,8 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, 
+	{ 0,            XF86XK_MonBrightnessUp,    spawn,          {.v = upbrightness } },
+	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downbrightness } },
 };
 
 /* button definitions */
