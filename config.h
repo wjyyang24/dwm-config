@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include "push.c"
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -103,9 +104,11 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_e,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ControlMask,           XK_k,      setcfact,       {.f = +0.25} },
-	{ MODKEY|ControlMask,           XK_j,      setcfact,       {.f = -0.25} },
+	{ MODKEY|ControlMask,           XK_l,      setcfact,       {.f = +0.25} },
+	{ MODKEY|ControlMask,           XK_h,      setcfact,       {.f = -0.25} },
 	{ MODKEY|ControlMask,           XK_o,      setcfact,       {.f =  0.00} },
+	{ MODKEY|ControlMask,           XK_j,      pushdown,       {0} },
+	{ MODKEY|ControlMask,           XK_k,      pushup,         {0} },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_u,      incrgaps,       {.i = +1 } },
 	{ MODKEY,                       XK_d,      incrgaps,       {.i = -1 } },
