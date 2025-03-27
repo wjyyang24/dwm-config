@@ -21,18 +21,18 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#ff4971"; /* pink */
-static const unsigned int baralpha = 0xb3;
+static const unsigned int baralpha = 0xb2;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 	[SchemeHov]  = { col_gray4, col_cyan,  col_cyan  },
 	[SchemeHid]  = { col_cyan,  col_gray1, col_cyan  },
 };
 static const unsigned int alphas[][3] = {
     	/*               fg      bg        border*/
-    	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
+    	[SchemeNorm] = { OPAQUE, baralpha, baralpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 	[SchemeHov]  = { OPAQUE, baralpha, borderalpha },
 	[SchemeHid]  = { OPAQUE, baralpha, borderalpha },
@@ -96,7 +96,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
-static const char *browsercmd[] = { "librewolf-bin", NULL };
+static const char *browsercmd[] = { "firefox-bin", NULL };
 static const char *upbrightness[]   = { "brightnessctl", "set", "+10%", NULL };
 static const char *downbrightness[] = { "brightnessctl", "set", "10%-", NULL };
 static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",   NULL };
@@ -186,7 +186,7 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
+	{ ClkWinTitle,          0,              Button2,        killclient,     {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
