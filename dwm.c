@@ -835,19 +835,19 @@ drawbar(Monitor *m)
 					continue;
 				if (m->hov == c)
 					scm = SchemeHov;
-				else if (m->sel == c)
-						scm = SchemeSel;
+				else if (m->sel == c && m == selmon)
+					scm = SchemeSel;
 				else if (HIDDEN(c))
-						scm = SchemeHid;
+					scm = SchemeHid;
 				else
-						scm = SchemeNorm;
+					scm = SchemeNorm;
 				drw_setscheme(drw, scheme[scm]);
 
 				if (remainder >= 0) {
-						if (remainder == 0) {
-								tabw--;
-						}
-						remainder--;
+					if (remainder == 0) {
+						tabw--;
+					}
+					remainder--;
 				}
 				drw_text(drw, x, 0, tabw, bh, lrpad / 2, c->name, 0);
 				x += tabw;
