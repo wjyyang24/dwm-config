@@ -98,6 +98,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *roficmd[]  = { "rofi", "-show", "drun" , NULL };
 static const char *termcmd[]  = { "kitty", NULL };
 static const char *browsercmd[] = { "firefox-bin", NULL };
+static const char *lockcmd[] = { "/home/electrOw_w/Scripts/lock.sh", NULL };
 static const char *upbrightness[]   = { "brightnessctl", "set", "+10%", NULL };
 static const char *downbrightness[] = { "brightnessctl", "set", "10%-", NULL };
 static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",   NULL };
@@ -110,6 +111,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
+  { MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
