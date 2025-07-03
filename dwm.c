@@ -45,6 +45,8 @@
 #include "drw.h"
 #include "util.h"
 
+#define PERTAG_PATCH 1
+
 /* macros */
 #define BUTTONMASK              (ButtonPressMask|ButtonReleaseMask)
 #define CLEANMASK(mask)         (mask & ~(numlockmask|LockMask) & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
@@ -262,6 +264,36 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void xinitvisual();
 static void zoom(const Arg *arg);
+/* originally from vanitygaps.c
+ * idk what im doing
+ */
+/* Key binding functions */
+static void defaultgaps(const Arg *arg);
+static void incrgaps(const Arg *arg);
+/*
+static void incrigaps(const Arg *arg);
+static void incrogaps(const Arg *arg);
+static void incrohgaps(const Arg *arg);
+static void incrovgaps(const Arg *arg);
+static void incrihgaps(const Arg *arg);
+static void incrivgaps(const Arg *arg);
+*/
+static void togglegaps(const Arg *arg);
+/* Layouts (delete the ones you do not need) */
+static void bstack(Monitor *m);
+static void bstackhoriz(Monitor *m);
+static void centeredmaster(Monitor *m);
+static void centeredfloatingmaster(Monitor *m);
+static void deck(Monitor *m);
+static void dwindle(Monitor *m);
+static void fibonacci(Monitor *m, int s);
+static void grid(Monitor *m);
+static void spiral(Monitor *m);
+static void tile(Monitor *m);
+/* Internals */
+static void getgaps(Monitor *m, int *oh, int *ov, int *ih, int *iv, unsigned int *nc);
+static void getfacts(Monitor *m, int msize, int ssize, float *mf, float *sf, int *mr, int *sr);
+static void setgaps(int oh, int ov, int ih, int iv);
 
 /* variables */
 static const char broken[] = "broken";
@@ -313,7 +345,21 @@ struct Pertag {
 	unsigned int sellts[LENGTH(tags) + 1]; /* selected layouts */
 	const Layout *ltidxs[LENGTH(tags) + 1][2]; /* matrix of tags and layouts indexes  */
 	int showbars[LENGTH(tags) + 1]; /* display bar for the current tag */
+  int enablegaps[LENGTH(tags) + 1]; /* if gaps are enabled */
 };
+
+/* so basically im trying to get the PERTAG_PATCH compiler 
+ * directive thingy or whatever in vanitygaps.c to work but it wont
+ * compile because the Pertag type wasnt defined yet but i couldnt
+ * move the definition before i include config.h because the 
+ * declaration depends on the tags which are defined in config.h
+ * so instead im trying to move all the vanitygaps function
+ * declarations into this file so vanitygaps.c doesnt have to be
+ * included in config.h... i forget where i was going with this
+ *
+ * alright so whatever i did seemed to work
+ */
+#include "vanitygaps.c"
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
@@ -732,6 +778,8 @@ createmon(void)
 		m->pertag->sellts[i] = m->sellt;
 
 		m->pertag->showbars[i] = m->showbar;
+
+    m->pertag->enablegaps[i] = enablegaps;
 	}
 
 	return m;

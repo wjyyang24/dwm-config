@@ -1,37 +1,4 @@
-/* Key binding functions */
-static void defaultgaps(const Arg *arg);
-static void incrgaps(const Arg *arg);
-/*
-static void incrigaps(const Arg *arg);
-static void incrogaps(const Arg *arg);
-static void incrohgaps(const Arg *arg);
-static void incrovgaps(const Arg *arg);
-static void incrihgaps(const Arg *arg);
-static void incrivgaps(const Arg *arg);
-*/
-static void togglegaps(const Arg *arg);
-/* Layouts (delete the ones you do not need) */
-static void bstack(Monitor *m);
-static void bstackhoriz(Monitor *m);
-static void centeredmaster(Monitor *m);
-static void centeredfloatingmaster(Monitor *m);
-static void deck(Monitor *m);
-static void dwindle(Monitor *m);
-static void fibonacci(Monitor *m, int s);
-static void grid(Monitor *m);
-static void nrowgrid(Monitor *m);
-static void spiral(Monitor *m);
-static void tile(Monitor *m);
-/* Internals */
-static void getgaps(Monitor *m, int *oh, int *ov, int *ih, int *iv, unsigned int *nc);
-static void getfacts(Monitor *m, int msize, int ssize, float *mf, float *sf, int *mr, int *sr);
-static void setgaps(int oh, int ov, int ih, int iv);
-
 /* Settings */
-#if !PERTAG_PATCH
-static int enablegaps = 1;
-#endif // PERTAG_PATCH
-
 void
 setgaps(int oh, int ov, int ih, int iv)
 {
@@ -729,59 +696,6 @@ horizgrid(Monitor *m) {
  * nrowgrid layout + gaps
  * https://dwm.suckless.org/patches/nrowgrid/
  */
-void
-nrowgrid(Monitor *m)
-{
-	unsigned int n;
-	int ri = 0, ci = 0;  /* counters */
-	int oh, ov, ih, iv;                         /* vanitygap settings */
-	unsigned int cx, cy, cw, ch;                /* client geometry */
-	unsigned int uw = 0, uh = 0, uc = 0;        /* utilization trackers */
-	unsigned int cols, rows = m->nmaster + 1;
-	Client *c;
-
-	/* count clients */
-	getgaps(m, &oh, &ov, &ih, &iv, &n);
-
-	/* nothing to do here */
-	if (n == 0)
-		return;
-
-	/* force 2 clients to always split vertically */
-	if (FORCE_VSPLIT && n == 2)
-		rows = 1;
-
-	/* never allow empty rows */
-	if (n < rows)
-		rows = n;
-
-	/* define first row */
-	cols = n / rows;
-	uc = cols;
-	cy = m->wy + oh;
-	ch = (m->wh - 2*oh - ih*(rows - 1)) / rows;
-	uh = ch;
-
-	for (c = nexttiled(m->clients); c; c = nexttiled(c->next), ci++) {
-		if (ci == cols) {
-			uw = 0;
-			ci = 0;
-			ri++;
-
-			/* next row */
-			cols = (n - uc) / (rows - ri);
-			uc += cols;
-			cy = m->wy + oh + uh + ih;
-			uh += ch + ih;
-		}
-
-		cx = m->wx + ov + uw;
-		cw = (m->ww - 2*ov - uw) / (cols - ci);
-		uw += cw + iv;
-
-		resize(c, cx, cy, cw - (2*c->bw), ch - (2*c->bw), 0);
-	}
-}
 
 /*
  * Default tile layout + gaps
