@@ -1341,7 +1341,7 @@ movemouse(const Arg *arg)
 			handler[ev.type](&ev);
 			break;
 		case MotionNotify:
-			if ((ev.xmotion.time - lasttime) <= (1000 / 240)) /* change limit to 240 fps */
+			if ((ev.xmotion.time - lasttime) <= (1000 / 300)) /* change limit to 240 fps */
 				continue;
 			lasttime = ev.xmotion.time;
 
@@ -1648,7 +1648,7 @@ resizemouse(const Arg *arg)
 			handler[ev.type](&ev);
 			break;
 		case MotionNotify:
-			if ((ev.xmotion.time - lasttime) <= (1000 / 240)) /* change limit to 240 fps */
+			if ((ev.xmotion.time - lasttime) <= (1000 / 300)) /* change limit to 240 fps */
 				continue;
 			lasttime = ev.xmotion.time;
 
