@@ -758,6 +758,6 @@ monocle(Monitor *m)
 	getgaps(m, &oh, &ov, &ih, &iv, &n);
 
 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-		resize(c, m->wx + ov, m->wy + oh, m->ww - ov - 2 * c->bw, m->wh - oh - 2 * c->bw, 0);
+		resize(c, m->wx + ov, m->wy + oh, m->ww - 2*ov - 2*c->bw, m->wh - 2*oh - 2*c->bw, 0);
 }
 
