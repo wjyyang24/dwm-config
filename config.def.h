@@ -53,16 +53,16 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "[]=",      tile },    /* first entry is default */
-	{ "[\\]",     dwindle },
 	{ "H[]",      deck },
+	{ "|M|",      centeredmaster },
+	{ ":::",      gaplessgrid },
 	{ "TTT",      bstack },
 	{ "===",      bstackhoriz },
 	{ "HHH",      grid },
 	{ "###",      nrowgrid },
 	{ "---",      horizgrid },
-	{ ":::",      gaplessgrid },
-	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
+	{ "[\\]",     dwindle },
 	{ NULL,       NULL },
 };
 
@@ -118,6 +118,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_n,      cyclelayout,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_n,      cyclelayout,    {.i = -1 } },
 	//{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_equal,  view,           {.ui = ~0 } },
