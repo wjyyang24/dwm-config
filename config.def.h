@@ -80,23 +80,10 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *roficmd[]  = { "rofi", "-show", "drun" , NULL };
-static const char *termcmd[]  = { "kitty", NULL };
-static const char *browsercmd[] = { "firefox-bin", NULL };
-static const char *lockcmd[] = { "/home/electrOw_w/Scripts/lock.sh", NULL };
-static const char *upbrightness[]   = { "brightnessctl", "set", "+10%", NULL };
-static const char *downbrightness[] = { "brightnessctl", "set", "10%-", NULL };
-static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",   NULL };
-static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",   NULL };
-static const char *mute_vol[] = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
-  { MODKEY|Mod1Mask,              XK_l,      spawn,          {.v = lockcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -122,7 +109,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_n,      cyclelayout,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_n,      cyclelayout,    {.i = -1 } },
-	//{ MODKEY,                       XK_space,  setlayout,      {0} },
+//{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_equal,  view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_equal,  tag,            {.ui = ~0 } },
@@ -141,11 +128,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|Mod1Mask,              XK_q,      quit,           {0} },
 	{ MODKEY|Mod1Mask|ShiftMask,    XK_q,      quit,           {1} }, 
-	{ 0,            XF86XK_MonBrightnessUp,    spawn,          {.v = upbrightness } },
-	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downbrightness } },
-	{ 0, 		        XF86XK_AudioMute,          spawn, 	       {.v = mute_vol } },
-	{ 0, 		        XF86XK_AudioLowerVolume,   spawn, 	       {.v = down_vol } },
-  { 0, 		        XF86XK_AudioRaiseVolume,   spawn,  	       {.v = up_vol } },
 };
 
 /* button definitions */
@@ -155,7 +137,7 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        killclient,     {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+//{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
